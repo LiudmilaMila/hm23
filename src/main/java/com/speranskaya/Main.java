@@ -1,6 +1,7 @@
 package com.speranskaya;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.commons.collections4.Bag;
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.OrderedMap;
@@ -8,7 +9,10 @@ import org.apache.commons.collections4.bag.HashBag;
 import org.apache.commons.collections4.bidimap.TreeBidiMap;
 import org.apache.commons.collections4.map.LinkedMap;
 
+import java.lang.reflect.Type;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class Main {
     public static void main(String[] args) {
@@ -50,7 +54,29 @@ public class Main {
                 + " " + callLog1.getPhoneNumber()
                 + " " + callLog1.getTime());
 
+        System.out.println("--------------------------------------");
+        Collection<CallLog> callLogs = new ArrayList<>();
+        while (callLogs.size() < 5) {
+            callLogs.add(new CallLogsFactory().createCallLog());
+        }
+
+        for (CallLog log : callLogs) {
+            System.out.println(log.getContactName()
+                    + " " + log.getPhoneNumber()
+                    + " " + log.getTime());
+        }
+
+        Gson gson1 = new Gson();
+        String json1 = gson.toJson(callLogs);
+        System.out.println(json1);
+        System.out.println("--------------------------------------------");
+        Type collectionType = new TypeToken<Collection<CallLog>>() {
+        }.getType();
+        Collection<CallLog> callLogs1 = gson1.fromJson(json1, collectionType);
+        for (CallLog log : callLogs1) {
+            System.out.println(log.getContactName()
+                    + " " + log.getPhoneNumber()
+                    + " " + log.getTime());
+        }
     }
-
-
 }

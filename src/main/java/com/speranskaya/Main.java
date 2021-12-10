@@ -16,10 +16,15 @@ import java.util.Collection;
 
 public class Main {
     public static void main(String[] args) {
-        new Main().run();
+        int value = 5;
+        if (args.length != 0) {
+            value = Integer.parseInt(args[0]);
+            System.out.println("Найденный аргумент: " + value);
+        }
+        new Main().run(value);
     }
 
-    private void run() {
+    private void run(int value) {
         BidiMap<String, String> bidi = new TreeBidiMap<>();
         bidi.put("SIX", "6");
         bidi.get("SIX");
@@ -56,7 +61,7 @@ public class Main {
 
         System.out.println("--------------------------------------");
         Collection<CallLog> callLogs = new ArrayList<>();
-        while (callLogs.size() < 5) {
+        while (callLogs.size() < value) {
             callLogs.add(new CallLogsFactory().createCallLog());
         }
 

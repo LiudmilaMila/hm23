@@ -24,4 +24,5 @@ public class CallLog {
     public LocalTime getTime() {
         return time;
     }
+
 }
